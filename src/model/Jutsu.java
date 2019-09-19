@@ -14,12 +14,23 @@ public class Jutsu implements Comparable<Jutsu>{
 		this.factor=factor;
 	}
 	
-	public int compareTo(Jutsu jutsu){
+	//Compare
+	public int compareTo(Jutsu jutsu){//Factor
 		int delta=(int)((factor*1000)-(jutsu.factor*1000));
 		return delta;
 	}
 	
 	//Set
+	//Update----
+	public void setName(String name){
+		this.name=name;
+	}
+	
+	public void setFactor(double factor){
+		this.factor=factor;
+	}
+	//----------
+	
 	public void setNextJutsu(Jutsu nextJutsu) {
 		this.nextJutsu = nextJutsu;
 	}
@@ -33,7 +44,6 @@ public class Jutsu implements Comparable<Jutsu>{
 		return nextJutsu;
 	}
 	
-	@Override
 	public String toString() {
 		return "Jutsu [name=" + name + ", factor=" + factor + "]";
 	}

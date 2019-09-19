@@ -88,6 +88,15 @@ public class HagoromoSekai {
 		return found;
 	}
 
+	//Print
+	public String printClans(){//Testeo?
+		String clans="";
+		for(int i=0;i<this.clans.size();i++){
+			clans+=this.clans.get(i);
+		}
+		return clans;
+	}
+	
 	//Save
 	public boolean save(){//[File]
 		boolean possible=true;

@@ -65,8 +65,115 @@ public class Clan implements Comparable<Clan>{
 		return found;
 	}
 	
-	//No se
-	public String printShinobis(){
+	//Sort
+	public void sortShinobiName(){//Selection
+		int size=shinobiSize();
+		for(int i=0;i<(size-1);i++){
+			Shinobi min=getShinobi(i);
+			int minPos=i;
+			for(int j=(i+1);j<size;j++){
+				if(getShinobi(j).compareTo(min)<0){
+					min=getShinobi(j);
+					minPos=j;
+				}
+			}
+			Shinobi actual=getShinobi(i);
+			setShinobi(i,min);
+			setShinobi(minPos,actual);
+		}
+	}
+	
+	public void sortShinobiPower(){//Bubble
+		int size=shinobiSize();
+		for(int i=0; i<size;i++){
+			for(int j=0; j<(size-(i+1));j++){
+				if(getShinobi(j+1).compare(getShinobi(j+1),getShinobi(j))<0){
+					Shinobi actual=getShinobi(j);
+					setShinobi(j, getShinobi(j+1));
+					setShinobi(j+1, actual);
+				}
+			}
+		}
+	}
+	
+	public void sortShinobiCreationDate(){//Insertion
+		int size=shinobiSize();
+		for(int i=1;i<size;i++){
+			for(int j=i;(j>0)&&(getShinobi(j-1).compareCreationDate(getShinobi(j))>0);){
+				Shinobi actual=getShinobi(j);
+				setShinobi(j, getShinobi(j-1));
+				setShinobi(j-1, actual);
+			}
+		}
+	}
+	
+	//Compare
+	public int compareTo(Clan clan){//Name
+		int delta=name.compareTo(clan.name);
+		return delta;
+	}
+
+	//List-------------------------------------------------------------
+	public int shinobiSize(){//Testeo?
+		int size=0;
+		Shinobi actual=firstShinobi;
+		while(actual!=null){
+			size++;
+			actual=actual.getNextShinobi();
+		}
+		return size;
+	}
+	
+	public Shinobi getShinobi(int index){
+		Shinobi shinobi=firstShinobi;
+		try{
+			for(int i=0;i<index;i++){
+				shinobi=shinobi.getNextShinobi();
+			}
+		}
+		catch(NullPointerException e){
+			shinobi=null;
+		}
+		return shinobi;
+	}
+	
+	public boolean setShinobi(int index, Shinobi tempShinobi){
+		int size=shinobiSize();
+		Shinobi shinobi=new Shinobi(tempShinobi.getName(), tempShinobi.getPersonality(), tempShinobi.getCreationDate(), tempShinobi.getPower());
+		
+		boolean posible=true;
+		Shinobi actual=firstShinobi;
+		try{
+			for(int i=0;i<index;i++){
+				actual=actual.getNextShinobi();
+			}
+			if(index==0){
+				shinobi.setNextShinobi(actual.getNextShinobi());//Next
+				if(size!=1)
+					actual.getNextShinobi().setPrevShinobi(shinobi);
+				this.firstShinobi=shinobi;
+			}
+			else if(index==(size-1)){
+				actual.getPrevShinobi().setNextShinobi(shinobi);
+				shinobi.setPrevShinobi(actual.getPrevShinobi());//Prev
+				
+			}
+			else{
+				shinobi.setNextShinobi(actual.getNextShinobi());//Next
+				actual.getNextShinobi().setPrevShinobi(shinobi);
+				shinobi.setPrevShinobi(actual.getPrevShinobi());//Prev
+				actual.getPrevShinobi().setNextShinobi(shinobi);
+			}
+		}
+		catch(NullPointerException e){
+			posible=false;
+		}
+		return posible;
+	}
+	//-----------------------------------------------------------------
+	
+	//Print
+	public String printShinobis(){//Testeo?
 		String shinobis="";
 		Shinobi actual=firstShinobi;
 		while(actual!=null){
@@ -76,13 +183,24 @@ public class Clan implements Comparable<Clan>{
 		return shinobis;
 	}
 	
-	public int compareTo(Clan clan){
-		int delta=name.compareTo(clan.name);//Mejor hacerlo con el metodo getName()?
-		return delta;
-	}
-
 	public String toString() {
-		return "Clan [name=" + name + "]";
+		return "-[name=" + name + "]-";
+	}
+	
+	//Set
+	//Update----
+	public void setName(String name){
+		this.name=name;
+	}
+	//----------
+	
+	public void setFirstShinobi(Shinobi firstShinobi){
+		this.firstShinobi=firstShinobi;
+	}
+	
+	//Get
+	public Shinobi getFirstShinobi(){
+		return firstShinobi;
 	}
 	
 }

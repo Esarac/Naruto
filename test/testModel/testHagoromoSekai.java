@@ -8,52 +8,58 @@ import model.HagoromoSekai;
 
 class testHagoromoSekai {
 
+	//Tested Class
 	private HagoromoSekai sekai;
 	
-	private void setUpSceneSekai(){
+	//Scene
+	private void setUpSceneEmptySekai(){
 		sekai=new HagoromoSekai();
 	}
 	
-	@Test
-	void testSearchClan() {
-		setUpSceneSekai();
-		assertFalse(sekai.searchClan("Uchiha"));
+	private void setUpSceneNormalSekai(){
+		sekai=new HagoromoSekai();
 		ArrayList<Clan> clans=new ArrayList<Clan>();
 		clans.add(new Clan("Aburame"));
 		clans.add(new Clan("Hiuga"));
 		clans.add(new Clan("Sarutobi"));
 		sekai.setClans(clans);
+	}
+	
+	
+	//Test
+	@Test
+	void testSearchClan() {
+		setUpSceneEmptySekai();
+		assertFalse(sekai.searchClan("Uchiha"));
+		setUpSceneNormalSekai();
 		assertTrue(sekai.searchClan("Aburame"));
 		assertTrue(sekai.searchClan("Hiuga"));
 		assertTrue(sekai.searchClan("Sarutobi"));
-		assertFalse(sekai.searchClan("Uchiha"));
 	}
 
 	@Test
 	void testAddClan(){
-		setUpSceneSekai();
-		assertTrue(sekai.addClan("H"));
-		assertTrue(sekai.addClan("A"));
-		assertFalse(sekai.addClan("H"));
+		setUpSceneEmptySekai();
+		assertTrue(sekai.addClan("Hiuga"));
+		assertTrue(sekai.addClan("Aburame"));
+		assertFalse(sekai.addClan("Hiuga"));
 		
+		//Verify
 		ArrayList<Clan> clans=new ArrayList<Clan>();
 		clans.add(new Clan("A"));
 		clans.add(new Clan("H"));
-		
-		assertArrayEquals(clans.toArray(), sekai.getClans().toArray());//Porque no funciona?
+		assertArrayEquals(clans.toArray(), sekai.getClans().toArray());//Como arreglarlo?
+		//...
 		
 	}
 	
 	@Test
 	void testDeleteClan() {
-		setUpSceneSekai();
-		ArrayList<Clan> clans=new ArrayList<Clan>();
-		clans.add(new Clan("Aburame"));
-		clans.add(new Clan("Hiuga"));
-		sekai.setClans(clans);
-		
+		setUpSceneNormalSekai();
 		assertTrue(sekai.deleteClan("Aburame"));
+		assertTrue(sekai.deleteClan("Sarutobi"));
 		assertTrue(sekai.deleteClan("Hiuga"));
+		setUpSceneEmptySekai();
 		assertFalse(sekai.deleteClan("Aburame"));
 	}
 }
