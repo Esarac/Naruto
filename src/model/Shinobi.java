@@ -1,10 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Comparator;
 
-public class Shinobi implements Comparable<Shinobi>, Comparator<Shinobi>{
+public class Shinobi implements Serializable, Comparable<Shinobi>, Comparator<Shinobi>{
 
 	//Attribute
 	private String name;
@@ -83,6 +84,19 @@ public class Shinobi implements Comparable<Shinobi>, Comparator<Shinobi>{
 		return found;
 	}
 	
+	//Update
+	public boolean updateJutsuName(String name, Jutsu jutsu){
+		 boolean exist=searchJutsu(name);
+		 if(!exist)
+			 jutsu.setName(name);
+		 return !exist;
+	}
+	
+	public void updateJutsuFactor(double factor, Jutsu jutsu){
+		jutsu.setFactor(factor);
+		sortJutsuFactor();
+	}
+	
 	//Search
 	public boolean searchJutsu(String name){
 		boolean found=false;
@@ -94,6 +108,30 @@ public class Shinobi implements Comparable<Shinobi>, Comparator<Shinobi>{
 				actual=actual.getNextJutsu();
 		}
 		return found;
+	}
+	
+	public Jutsu getJutsu(String name){
+		Jutsu actual=firstJutsu;
+		boolean found=false;
+		while((actual!=null) && !found){
+			if(actual.getName().equals(name))
+				found=true;
+			else
+				actual=actual.getNextJutsu();
+		}
+		return actual;
+	}
+	
+	//Sort
+	public void sortJutsuFactor(){
+		int size=jutsuSize();
+		for(int i=1;i<size;i++){
+			for(int j=i;(j>0)&&(getJutsu(j-1).compareTo(getJutsu(j))>0);j--){
+				Jutsu actual=getJutsu(j);
+				setJutsu(j, getJutsu(j-1));
+				setJutsu(j-1, actual);
+			}
+		}
 	}
 	
 	//Compare
@@ -111,6 +149,58 @@ public class Shinobi implements Comparable<Shinobi>, Comparator<Shinobi>{
 		int delta=creationDate.compareTo(shinobi.creationDate);
 		return delta;
 	}
+	
+	//List-------------------------------------------------------------
+	public int jutsuSize(){//Testeo?
+		int size=0;
+		Jutsu actual=firstJutsu;
+		while(actual!=null){
+			size++;
+			actual=actual.getNextJutsu();
+		}
+		return size;
+	}
+	
+	public Jutsu getJutsu(int index){
+		Jutsu jutsu=firstJutsu;
+		try{
+			for(int i=0;i<index;i++){
+				jutsu=jutsu.getNextJutsu();
+			}
+		}
+		catch(NullPointerException e){
+			jutsu=null;
+		}
+		return jutsu;
+	}
+	
+	public boolean setJutsu(int index, Jutsu tempJutsu){
+		int size=jutsuSize();
+		Jutsu jutsu=new Jutsu(tempJutsu.getName(), tempJutsu.getFactor());
+		
+		boolean posible=true;
+		Jutsu previous=null;
+		Jutsu actual=firstJutsu;
+		try{
+			for(int i=0;i<index;i++){
+				previous=actual;
+				actual=actual.getNextJutsu();
+			}
+			if(index==0){
+				jutsu.setNextJutsu(actual.getNextJutsu());//Next
+				this.firstJutsu=jutsu;
+			}
+			else{
+				jutsu.setNextJutsu(actual.getNextJutsu());//Next
+				previous.setNextJutsu(jutsu);
+			}
+		}
+		catch(NullPointerException e){
+			posible=false;
+		}
+		return posible;
+	}
+	//-----------------------------------------------------------------
 	
 	//Print
 	public String printJutsus(){//Testeo??

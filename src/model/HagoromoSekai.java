@@ -64,6 +64,15 @@ public class HagoromoSekai {
 		return found;
 	}
 	
+	 //Update
+	public boolean updateClanName(String name, Clan clan){
+		 boolean exist=searchClan(name);
+		 if(!exist)
+			 clan.setName(name);
+		 sortClanName();
+		 return !exist;
+	}
+	
 	//Search
 	public boolean searchClan(String name){
 		Clan temp=new Clan(name);
@@ -87,7 +96,43 @@ public class HagoromoSekai {
 		
 		return found;
 	}
-
+	
+	public Clan getClan(String name){
+		Clan temp=new Clan(name);
+		Clan searched=null;
+		
+		boolean found=false;
+		int start=0;
+		int end=clans.size()-1;
+		
+		while((start<=end) && !found){
+			int middle=(start+end)/2;
+			if(clans.get(middle).compareTo(temp)==0){
+				searched=clans.get(middle);
+				found=true;
+			}
+			else if(clans.get(middle).compareTo(temp)>0){
+				end=middle-1;
+			}
+			else{
+				start=middle+1;
+			}
+		}
+		
+		return searched;
+	}
+	
+	//Sort
+	public void sortClanName(){//Insertion
+		for(int i=1; i<clans.size(); i++){
+			for(int j=i; (j>0)&&(clans.get(j-1).compareTo(clans.get(j))>0); j--){
+				Clan actual=clans.get(j);
+				clans.set(j,clans.get(j-1));
+				clans.set(j-1,actual);
+			}
+		}
+	}
+	
 	//Print
 	public String printClans(){//Testeo?
 		String clans="";

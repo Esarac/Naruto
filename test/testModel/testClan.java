@@ -51,13 +51,31 @@ class testClan {
 	}
 	
 	@Test
-	void testDeleteClan() {
+	void testDeleteShinobi() {
 		setUpSceneEmptyClan();
 		assertFalse(clan.deleteShinobi("Danzo"));
 		setUpSceneNormalClan();
 		assertTrue(clan.deleteShinobi("Sasuke"));
 		assertTrue(clan.deleteShinobi("Obito"));
 		assertTrue(clan.deleteShinobi("Itachi"));
+	}
+	
+	@Test
+	void testGetShinobi(){
+		setUpSceneEmptyClan();
+		assertEquals(clan.getShinobi("Madara"),null);
+		setUpSceneNormalClan();
+		assertEquals(clan.getShinobi("Sasuke").getName(),"Sasuke");
+		assertEquals(clan.getShinobi("Itachi").getName(),"Itachi");
+		assertEquals(clan.getShinobi("Obito").getName(),"Obito");
+	}
+	
+	@Test
+	void testUpdateShinobiName(){
+		setUpSceneNormalClan();
+		clan.updateShinobiName("Madara",clan.getShinobi(1));
+		assertEquals(clan.getShinobi(1).getName(), "Madara");
+		assertFalse(clan.updateShinobiName("Madara",clan.getShinobi(0)));
 	}
 	
 	@Test
@@ -88,7 +106,7 @@ class testClan {
 	}
 	
 	@Test
-	void testGetShinobi(){
+	void testGetShinobiList(){
 		setUpSceneEmptyClan();
 		assertEquals(clan.getShinobi(1),null);
 		setUpSceneNormalClan();

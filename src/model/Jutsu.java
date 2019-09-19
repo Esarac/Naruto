@@ -1,6 +1,8 @@
 package model;
 
-public class Jutsu implements Comparable<Jutsu>{
+import java.io.Serializable;
+
+public class Jutsu implements Serializable, Comparable<Jutsu>{
 
 	//Attribute
 	private String name;
@@ -38,6 +40,10 @@ public class Jutsu implements Comparable<Jutsu>{
 	//Get
 	public String getName(){
 		return name;
+	}
+	
+	public double getFactor(){
+		return factor;
 	}
 	
 	public Jutsu getNextJutsu() {

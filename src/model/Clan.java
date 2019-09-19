@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Clan implements Comparable<Clan>{
+public class Clan implements Serializable, Comparable<Clan>{
 
 	//Attribute
 	private String name;
@@ -52,6 +53,14 @@ public class Clan implements Comparable<Clan>{
 		return found;
 	}
 	
+	//Update
+	public boolean updateShinobiName(String name, Shinobi shinobi){
+		 boolean exist=searchShinobi(name);
+		 if(!exist)
+			 shinobi.setName(name);
+		 return !exist;
+	}
+	
 	//Search
 	public boolean searchShinobi(String name){
 		boolean found=false;
@@ -63,6 +72,18 @@ public class Clan implements Comparable<Clan>{
 				actual=actual.getNextShinobi();
 		}
 		return found;
+	}
+	
+	public Shinobi getShinobi(String name){
+		Shinobi actual=firstShinobi;
+		boolean found=false;
+		while((actual!=null) && !found){
+			if(actual.getName().equals(name))
+				found=true;
+			else
+				actual=actual.getNextShinobi();
+		}
+		return actual;
 	}
 	
 	//Sort
@@ -99,7 +120,7 @@ public class Clan implements Comparable<Clan>{
 	public void sortShinobiCreationDate(){//Insertion
 		int size=shinobiSize();
 		for(int i=1;i<size;i++){
-			for(int j=i;(j>0)&&(getShinobi(j-1).compareCreationDate(getShinobi(j))>0);){
+			for(int j=i;(j>0)&&(getShinobi(j-1).compareCreationDate(getShinobi(j))>0);j--){
 				Shinobi actual=getShinobi(j);
 				setShinobi(j, getShinobi(j-1));
 				setShinobi(j-1, actual);
@@ -199,6 +220,10 @@ public class Clan implements Comparable<Clan>{
 	}
 	
 	//Get
+	public String getName(){
+		return name;
+	}
+	
 	public Shinobi getFirstShinobi(){
 		return firstShinobi;
 	}
