@@ -36,16 +36,6 @@ class testHagoromoSekai {
 	
 	//Test
 	@Test
-	void testSearchClan() {
-		setUpSceneEmptySekai();
-		assertFalse(sekai.searchClan("Uchiha"));
-		setUpSceneNormalSekai();
-		assertTrue(sekai.searchClan("Aburame"));
-		assertTrue(sekai.searchClan("Hiuga"));
-		assertTrue(sekai.searchClan("Sarutobi"));
-	}
-
-	@Test
 	void testAddClan(){
 		setUpSceneEmptySekai();
 		assertTrue(sekai.addClan("Hiuga"));
@@ -72,6 +62,24 @@ class testHagoromoSekai {
 	}
 	
 	@Test
+	void testUpdateClanName(){
+		setUpSceneNormalSekai();
+		sekai.updateClanName("Haruno",sekai.getClans().get(1));
+		assertEquals(sekai.getClans().get(1).getName(), "Haruno");
+		assertFalse(sekai.updateClanName("Haruno",sekai.getClans().get(0)));
+	}
+	
+	@Test
+	void testSearchClan() {
+		setUpSceneEmptySekai();
+		assertFalse(sekai.searchClan("Uchiha"));
+		setUpSceneNormalSekai();
+		assertTrue(sekai.searchClan("Aburame"));
+		assertTrue(sekai.searchClan("Hiuga"));
+		assertTrue(sekai.searchClan("Sarutobi"));
+	}
+	
+	@Test
 	void testGetClan(){
 		setUpSceneEmptySekai();
 		assertEquals(sekai.getClan("Uchiha"),null);
@@ -79,14 +87,6 @@ class testHagoromoSekai {
 		assertEquals(sekai.getClan("Aburame").getName(),"Aburame");
 		assertEquals(sekai.getClan("Hiuga").getName(),"Hiuga");
 		assertEquals(sekai.getClan("Sarutobi").getName(),"Sarutobi");
-	}
-	
-	@Test
-	void testUpdateClanName(){
-		setUpSceneNormalSekai();
-		sekai.updateClanName("Haruno",sekai.getClans().get(1));
-		assertEquals(sekai.getClans().get(1).getName(), "Haruno");
-		assertFalse(sekai.updateClanName("Haruno",sekai.getClans().get(0)));
 	}
 	
 	@Test

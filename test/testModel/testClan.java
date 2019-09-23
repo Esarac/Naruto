@@ -33,16 +33,6 @@ class testClan {
 	
 	//Test
 	@Test
-	void testSearchShinobi(){
-		setUpSceneEmptyClan();
-		assertFalse(clan.searchShinobi("Danzo"));
-		setUpSceneNormalClan();
-		assertTrue(clan.searchShinobi("Sasuke"));
-		assertTrue(clan.searchShinobi("Itachi"));
-		assertTrue(clan.searchShinobi("Obito"));
-	}
-	
-	@Test
 	void testAddShinobi(){
 		setUpSceneEmptyClan();
 		assertTrue(clan.addShinobi("Shisui","Introvertido",Calendar.getInstance(), 2000));
@@ -61,6 +51,24 @@ class testClan {
 	}
 	
 	@Test
+	void testUpdateShinobiName(){
+		setUpSceneNormalClan();
+		clan.updateShinobiName("Madara",clan.getShinobi(1));
+		assertEquals(clan.getShinobi(1).getName(), "Madara");
+		assertFalse(clan.updateShinobiName("Madara",clan.getShinobi(0)));
+	}
+	
+	@Test
+	void testSearchShinobi(){
+		setUpSceneEmptyClan();
+		assertFalse(clan.searchShinobi("Danzo"));
+		setUpSceneNormalClan();
+		assertTrue(clan.searchShinobi("Sasuke"));
+		assertTrue(clan.searchShinobi("Itachi"));
+		assertTrue(clan.searchShinobi("Obito"));
+	}
+	
+	@Test
 	void testGetShinobi(){
 		setUpSceneEmptyClan();
 		assertEquals(clan.getShinobi("Madara"),null);
@@ -68,14 +76,6 @@ class testClan {
 		assertEquals(clan.getShinobi("Sasuke").getName(),"Sasuke");
 		assertEquals(clan.getShinobi("Itachi").getName(),"Itachi");
 		assertEquals(clan.getShinobi("Obito").getName(),"Obito");
-	}
-	
-	@Test
-	void testUpdateShinobiName(){
-		setUpSceneNormalClan();
-		clan.updateShinobiName("Madara",clan.getShinobi(1));
-		assertEquals(clan.getShinobi(1).getName(), "Madara");
-		assertFalse(clan.updateShinobiName("Madara",clan.getShinobi(0)));
 	}
 	
 	@Test
@@ -106,15 +106,13 @@ class testClan {
 	}
 	
 	@Test
-	void testGetShinobiList(){
+	void testShinobiSize(){
 		setUpSceneEmptyClan();
-		assertEquals(clan.getShinobi(1),null);
+		assertEquals(clan.shinobiSize(), 0);
 		setUpSceneNormalClan();
-		assertEquals(clan.getShinobi(0).getName(), "Sasuke");
-		assertEquals(clan.getShinobi(1).getName(), "Itachi");
-		assertEquals(clan.getShinobi(2).getName(), "Obito");
+		assertEquals(clan.shinobiSize(), 3);
 	}
-
+	
 	@Test
 	void testSetShinobi(){
 		setUpSceneEmptyClan();
@@ -122,6 +120,16 @@ class testClan {
 		setUpSceneNormalClan();
 		assertTrue(clan.setShinobi(1,new Shinobi("Madara","Enojado",new GregorianCalendar(2001, 12-1, 24), 2000)));
 		assertTrue(clan.setShinobi(1,clan.getShinobi(2)));
+	}
+	
+	@Test
+	void testGetShinobiList(){
+		setUpSceneEmptyClan();
+		assertEquals(clan.getShinobi(1),null);
+		setUpSceneNormalClan();
+		assertEquals(clan.getShinobi(0).getName(), "Sasuke");
+		assertEquals(clan.getShinobi(1).getName(), "Itachi");
+		assertEquals(clan.getShinobi(2).getName(), "Obito");
 	}
 	
 }

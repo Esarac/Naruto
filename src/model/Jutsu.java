@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 public class Jutsu implements Serializable, Comparable<Jutsu>{
 
+	//Constant
+	private static final long serialVersionUID = -1883292939489506193L;
+	
 	//Attribute
 	private String name;
 	private double factor;
@@ -16,6 +19,11 @@ public class Jutsu implements Serializable, Comparable<Jutsu>{
 		this.factor=factor;
 	}
 	
+	//Print
+	public String toString() {
+		return "-[name=" + name + ", factor=" + factor + "]-";
+	}
+	
 	//Compare
 	public int compareTo(Jutsu jutsu){//Factor
 		int delta=(int)((factor*1000)-(jutsu.factor*1000));
@@ -23,7 +31,6 @@ public class Jutsu implements Serializable, Comparable<Jutsu>{
 	}
 	
 	//Set
-	//Update----
 	public void setName(String name){
 		this.name=name;
 	}
@@ -31,7 +38,6 @@ public class Jutsu implements Serializable, Comparable<Jutsu>{
 	public void setFactor(double factor){
 		this.factor=factor;
 	}
-	//----------
 	
 	public void setNextJutsu(Jutsu nextJutsu) {
 		this.nextJutsu = nextJutsu;
@@ -50,7 +56,4 @@ public class Jutsu implements Serializable, Comparable<Jutsu>{
 		return nextJutsu;
 	}
 	
-	public String toString() {
-		return "Jutsu [name=" + name + ", factor=" + factor + "]";
-	}
 }

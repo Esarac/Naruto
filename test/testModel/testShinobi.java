@@ -42,16 +42,6 @@ class testShinobi {
 	
 	//Test
 	@Test
-	void testSearchJutsu() {
-		setUpSceneEmptyShinobi();
-		assertFalse(ninja.searchJutsu("Kamui"));
-		setUpSceneNormalShinobi();
-		assertTrue(ninja.searchJutsu("Control de Cuerpo Humano"));
-		assertTrue(ninja.searchJutsu("100 Marionetas"));
-		assertTrue(ninja.searchJutsu("Arena de Hierro"));
-	}
-	
-	@Test
 	void testAddJutsu(){
 		setUpSceneEmptyShinobi();
 		assertTrue(ninja.addJutsu("Tirador de Agua", 0.4));
@@ -78,6 +68,24 @@ class testShinobi {
 	}
 	
 	@Test
+	void testUpdateJutsuName(){
+		setUpSceneNormalShinobi();
+		ninja.updateJutsuName("Tirador de Agua",ninja.getJutsu(1));
+		assertEquals(ninja.getJutsu(1).getName(), "Tirador de Agua");
+		assertFalse(ninja.updateJutsuName("Tirador de Agua",ninja.getJutsu(0)));
+	}
+	
+	@Test
+	void testSearchJutsu() {
+		setUpSceneEmptyShinobi();
+		assertFalse(ninja.searchJutsu("Kamui"));
+		setUpSceneNormalShinobi();
+		assertTrue(ninja.searchJutsu("Control de Cuerpo Humano"));
+		assertTrue(ninja.searchJutsu("100 Marionetas"));
+		assertTrue(ninja.searchJutsu("Arena de Hierro"));
+	}
+	
+	@Test
 	void testGetJutsu(){
 		setUpSceneEmptyShinobi();
 		assertEquals(ninja.getJutsu("Tirador de Agua"),null);
@@ -88,20 +96,29 @@ class testShinobi {
 	}
 	
 	@Test
-	void testUpdateShinobiName(){
-		setUpSceneNormalShinobi();
-		ninja.updateJutsuName("Tirador de Agua",ninja.getJutsu(1));
-		assertEquals(ninja.getJutsu(1).getName(), "Tirador de Agua");
-		assertFalse(ninja.updateJutsuName("Tirador de Agua",ninja.getJutsu(0)));
-	}
-	
-	@Test
-	void testSortShinobiPower(){
+	void testSortJutsuFactor(){
 		setUpSceneDisorderedShinobi();
 		ninja.sortJutsuFactor();
 		assertEquals(ninja.getJutsu(0).getFactor(),0.8);
 		assertEquals(ninja.getJutsu(1).getFactor(),1.2);
 		assertEquals(ninja.getJutsu(2).getFactor(),1.5);
+	}
+	
+	@Test
+	void testJutsuSize(){
+		setUpSceneEmptyShinobi();
+		assertEquals(ninja.jutsuSize(), 0);
+		setUpSceneNormalShinobi();
+		assertEquals(ninja.jutsuSize(), 3);
+	}
+	
+	@Test
+	void testSetJutsu(){
+		setUpSceneEmptyShinobi();
+		assertFalse(ninja.setJutsu(1,new Jutsu("Tirador de Agua", 0.4)));
+		setUpSceneNormalShinobi();
+		assertTrue(ninja.setJutsu(1,new Jutsu("Tirador de Agua", 0.4)));
+		assertTrue(ninja.setJutsu(1,ninja.getJutsu(2)));
 	}
 	
 	@Test
@@ -112,15 +129,6 @@ class testShinobi {
 		assertEquals(ninja.getJutsu(0).getName(), "Control de Cuerpo Humano");
 		assertEquals(ninja.getJutsu(1).getName(), "100 Marionetas");
 		assertEquals(ninja.getJutsu(2).getName(), "Arena de Hierro");
-	}
-	
-	@Test
-	void testSetJutsu(){
-		setUpSceneEmptyShinobi();
-		assertFalse(ninja.setJutsu(1,new Jutsu("Tirador de Agua", 0.4)));
-		setUpSceneNormalShinobi();
-		assertTrue(ninja.setJutsu(1,new Jutsu("Tirador de Agua", 0.4)));
-		assertTrue(ninja.setJutsu(1,ninja.getJutsu(2)));
 	}
 
 }

@@ -7,7 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-public class HagoromoSekai {
+public class HagoromoSekai{
 
 	//Constant
 	public final static String FILE_PATH="dat/clans.al";
@@ -64,13 +64,22 @@ public class HagoromoSekai {
 		return found;
 	}
 	
-	 //Update
+	//Update
 	public boolean updateClanName(String name, Clan clan){
 		 boolean exist=searchClan(name);
 		 if(!exist)
 			 clan.setName(name);
 		 sortClanName();
 		 return !exist;
+	}
+	
+	//Print
+	public String printClans(){//Testeo?
+		String clans="";
+		for(int i=0;i<this.clans.size();i++){
+			clans+=this.clans.get(i)+"\n";
+		}
+		return clans;
 	}
 	
 	//Search
@@ -131,15 +140,6 @@ public class HagoromoSekai {
 				clans.set(j-1,actual);
 			}
 		}
-	}
-	
-	//Print
-	public String printClans(){//Testeo?
-		String clans="";
-		for(int i=0;i<this.clans.size();i++){
-			clans+=this.clans.get(i);
-		}
-		return clans;
 	}
 	
 	//Save

@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 public class Clan implements Serializable, Comparable<Clan>{
-
+	
+	//Constant
+	private static final long serialVersionUID = -6581382413801875940L;
+	
 	//Attribute
 	private String name;
 	private Shinobi firstShinobi;//List
@@ -61,6 +64,21 @@ public class Clan implements Serializable, Comparable<Clan>{
 		 return !exist;
 	}
 	
+	//Print
+	public String printShinobis(){//Testeo?
+		String shinobis="";
+		Shinobi actual=firstShinobi;
+		while(actual!=null){
+			shinobis+=actual+"\n";
+			actual=actual.getNextShinobi();
+		}
+		return shinobis;
+	}
+	
+	public String toString() {
+		return "-[name=" + name + "]-";
+	}
+	
 	//Search
 	public boolean searchShinobi(String name){
 		boolean found=false;
@@ -87,7 +105,9 @@ public class Clan implements Serializable, Comparable<Clan>{
 	}
 	
 	//Sort
-	public void sortShinobiName(){//Selection
+	public long sortShinobiName(){//Selection
+		long startTime=System.nanoTime();
+		
 		int size=shinobiSize();
 		for(int i=0;i<(size-1);i++){
 			Shinobi min=getShinobi(i);
@@ -102,9 +122,15 @@ public class Clan implements Serializable, Comparable<Clan>{
 			setShinobi(i,min);
 			setShinobi(minPos,actual);
 		}
+		
+		long endTime=System.nanoTime();
+		long deltaTime=endTime-startTime;
+		return deltaTime;
 	}
 	
-	public void sortShinobiPower(){//Bubble
+	public long sortShinobiPower(){//Bubble
+		long startTime=System.nanoTime();
+		
 		int size=shinobiSize();
 		for(int i=0; i<size;i++){
 			for(int j=0; j<(size-(i+1));j++){
@@ -115,9 +141,15 @@ public class Clan implements Serializable, Comparable<Clan>{
 				}
 			}
 		}
+		
+		long endTime=System.nanoTime();
+		long deltaTime=endTime-startTime;
+		return deltaTime;
 	}
 	
-	public void sortShinobiCreationDate(){//Insertion
+	public long sortShinobiCreationDate(){//Insertion
+		long startTime=System.nanoTime();
+		
 		int size=shinobiSize();
 		for(int i=1;i<size;i++){
 			for(int j=i;(j>0)&&(getShinobi(j-1).compareCreationDate(getShinobi(j))>0);j--){
@@ -126,6 +158,10 @@ public class Clan implements Serializable, Comparable<Clan>{
 				setShinobi(j-1, actual);
 			}
 		}
+		
+		long endTime=System.nanoTime();
+		long deltaTime=endTime-startTime;
+		return deltaTime;
 	}
 	
 	//Compare
@@ -135,7 +171,7 @@ public class Clan implements Serializable, Comparable<Clan>{
 	}
 
 	//List-------------------------------------------------------------
-	public int shinobiSize(){//Testeo?
+	public int shinobiSize(){
 		int size=0;
 		Shinobi actual=firstShinobi;
 		while(actual!=null){
@@ -145,24 +181,11 @@ public class Clan implements Serializable, Comparable<Clan>{
 		return size;
 	}
 	
-	public Shinobi getShinobi(int index){
-		Shinobi shinobi=firstShinobi;
-		try{
-			for(int i=0;i<index;i++){
-				shinobi=shinobi.getNextShinobi();
-			}
-		}
-		catch(NullPointerException e){
-			shinobi=null;
-		}
-		return shinobi;
-	}
-	
 	public boolean setShinobi(int index, Shinobi tempShinobi){
 		int size=shinobiSize();
 		Shinobi shinobi=new Shinobi(tempShinobi.getName(), tempShinobi.getPersonality(), tempShinobi.getCreationDate(), tempShinobi.getPower());
 		
-		boolean posible=true;
+		boolean possible=true;
 		Shinobi actual=firstShinobi;
 		try{
 			for(int i=0;i<index;i++){
@@ -187,33 +210,39 @@ public class Clan implements Serializable, Comparable<Clan>{
 			}
 		}
 		catch(NullPointerException e){
-			posible=false;
+			try{
+				throw new ListIndexOutOfBoundsException();
+			}
+			catch(ListIndexOutOfBoundsException l){
+				possible=false;
+			}
 		}
-		return posible;
+		return possible;
+	}
+	
+	public Shinobi getShinobi(int index){
+		Shinobi shinobi=firstShinobi;
+		try{
+			for(int i=0;i<index;i++){
+				shinobi=shinobi.getNextShinobi();
+			}
+		}
+		catch(NullPointerException e){
+			try{
+				throw new ListIndexOutOfBoundsException();
+			}
+			catch(ListIndexOutOfBoundsException l){
+				shinobi=null;
+			}
+		}
+		return shinobi;
 	}
 	//-----------------------------------------------------------------
 	
-	//Print
-	public String printShinobis(){//Testeo?
-		String shinobis="";
-		Shinobi actual=firstShinobi;
-		while(actual!=null){
-			shinobis+=actual;
-			actual=actual.getNextShinobi();
-		}
-		return shinobis;
-	}
-	
-	public String toString() {
-		return "-[name=" + name + "]-";
-	}
-	
 	//Set
-	//Update----
 	public void setName(String name){
 		this.name=name;
 	}
-	//----------
 	
 	public void setFirstShinobi(Shinobi firstShinobi){
 		this.firstShinobi=firstShinobi;

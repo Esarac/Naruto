@@ -37,6 +37,7 @@ public class Interface {
 			}
 		}
 	}
+	
 	public boolean hagoromoSekaiMenu(){
 		boolean run=true;
 		System.out.println("Hagoromo Sekai:\n 1.Crear Clan\n 2.Borrar Clan\n 3.Imprimir Clanes\n 4.Entrar Clan\n 5.Salir");
@@ -122,13 +123,16 @@ public class Interface {
 				
 				switch(d1){
 					case 1:
-						actualClan.sortShinobiName();
+						System.out.println("Tiempo: "+actualClan.sortShinobiName()+"ns");
+						
 					break;
 					case 2:
-						actualClan.sortShinobiCreationDate();
+						System.out.println("Tiempo: "+actualClan.sortShinobiCreationDate()+"ns");
+						
 					break;
 					case 3:
-						actualClan.sortShinobiPower();
+						System.out.println("Tiempo: "+actualClan.sortShinobiPower()+"ns");
+						
 					break;
 				}
 				
@@ -248,7 +252,7 @@ public class Interface {
 						System.out.println("Nuevo factor de la tecnica:");
 						double a22=askDouble();
 						
-						actualJutsu.setFactor(a22);
+						actualShinobi.updateJutsuFactor(a22, actualJutsu);
 						System.out.println("Se actualizo a la tecnica");//Message
 					break;
 				}

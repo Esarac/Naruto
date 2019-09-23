@@ -6,7 +6,10 @@ import java.util.Calendar;
 import java.util.Comparator;
 
 public class Shinobi implements Serializable, Comparable<Shinobi>, Comparator<Shinobi>{
-
+	
+	//Constant
+	private static final long serialVersionUID = 5515108758496534696L;
+	
 	//Attribute
 	private String name;
 	private String personality;
@@ -97,6 +100,23 @@ public class Shinobi implements Serializable, Comparable<Shinobi>, Comparator<Sh
 		sortJutsuFactor();
 	}
 	
+	//Print
+	public String printJutsus(){//Testeo??
+		String jutsus="";
+		Jutsu actual=firstJutsu;
+		while(actual!=null){
+			jutsus+=actual+"\n";
+			actual=actual.getNextJutsu();
+		}
+		return jutsus;
+	}
+	
+	public String toString() {
+		SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+		String toString="-[name=" + name + ", personality=" + personality + ", creationDate=" + f.format(creationDate.getTime())+ ", power="+ power + "]-";
+		return toString;
+	}
+	
 	//Search
 	public boolean searchJutsu(String name){
 		boolean found=false;
@@ -151,7 +171,7 @@ public class Shinobi implements Serializable, Comparable<Shinobi>, Comparator<Sh
 	}
 	
 	//List-------------------------------------------------------------
-	public int jutsuSize(){//Testeo?
+	public int jutsuSize(){
 		int size=0;
 		Jutsu actual=firstJutsu;
 		while(actual!=null){
@@ -161,24 +181,10 @@ public class Shinobi implements Serializable, Comparable<Shinobi>, Comparator<Sh
 		return size;
 	}
 	
-	public Jutsu getJutsu(int index){
-		Jutsu jutsu=firstJutsu;
-		try{
-			for(int i=0;i<index;i++){
-				jutsu=jutsu.getNextJutsu();
-			}
-		}
-		catch(NullPointerException e){
-			jutsu=null;
-		}
-		return jutsu;
-	}
-	
 	public boolean setJutsu(int index, Jutsu tempJutsu){
-		int size=jutsuSize();
 		Jutsu jutsu=new Jutsu(tempJutsu.getName(), tempJutsu.getFactor());
 		
-		boolean posible=true;
+		boolean possible=true;
 		Jutsu previous=null;
 		Jutsu actual=firstJutsu;
 		try{
@@ -196,35 +202,41 @@ public class Shinobi implements Serializable, Comparable<Shinobi>, Comparator<Sh
 			}
 		}
 		catch(NullPointerException e){
-			posible=false;
+			try{
+				throw new ListIndexOutOfBoundsException();
+			}
+			catch(ListIndexOutOfBoundsException l){
+				possible=false;
+			}
 		}
-		return posible;
+		return possible;
+	}
+	
+	public Jutsu getJutsu(int index){
+		Jutsu jutsu=firstJutsu;
+		try{
+			for(int i=0;i<index;i++){
+				jutsu=jutsu.getNextJutsu();
+			}
+		}
+		catch(NullPointerException e){
+			try{
+				throw new ListIndexOutOfBoundsException();
+			}
+			catch(ListIndexOutOfBoundsException l){
+				jutsu=null;
+			}
+		}
+		return jutsu;
 	}
 	//-----------------------------------------------------------------
 	
-	//Print
-	public String printJutsus(){//Testeo??
-		String shinobis="";
-		Jutsu actual=firstJutsu;
-		while(actual!=null){
-			shinobis+=actual;
-			actual=actual.getNextJutsu();
-		}
-		return shinobis;
-	}
-	
-	public String toString() {
-		SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-		String toString="-[name=" + name + ", personality=" + personality + ", creationDate=" + f.format(creationDate.getTime())+ ", power="+ power + "]-";
-		return toString;
-	}
-	
 	//Set
-	//Update----
 	public void setName(String name){
 		this.name=name;
 	}
 	
+	//Update----
 	public void setPersonality(String personality){
 		this.personality=personality;
 	}
