@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import model.Clan;
 import model.HagoromoSekai;
 
-class testHagoromoSekai {
+class TestHagoromoSekai {
 
 	//Tested Class
 	private HagoromoSekai sekai;
@@ -42,23 +42,21 @@ class testHagoromoSekai {
 		assertTrue(sekai.addClan("Aburame"));
 		assertFalse(sekai.addClan("Hiuga"));
 		
-		//Verify
-		ArrayList<Clan> clans=new ArrayList<Clan>();
-		clans.add(new Clan("A"));
-		clans.add(new Clan("H"));
-		assertArrayEquals(clans.toArray(), sekai.getClans().toArray());//Como arreglarlo?
-		//...
-		
+		assertEquals(sekai.getClans().get(0).getName(), "Aburame");
+		assertEquals(sekai.getClans().get(1).getName(), "Hiuga");
 	}
 	
 	@Test
 	void testDeleteClan() {
+		setUpSceneEmptySekai();
+		assertFalse(sekai.deleteClan("Aburame"));
+		
 		setUpSceneNormalSekai();
 		assertTrue(sekai.deleteClan("Aburame"));
 		assertTrue(sekai.deleteClan("Sarutobi"));
 		assertTrue(sekai.deleteClan("Hiuga"));
-		setUpSceneEmptySekai();
-		assertFalse(sekai.deleteClan("Aburame"));
+		
+		assertEquals(sekai.getClans().size(), 0);
 	}
 	
 	@Test
@@ -66,6 +64,7 @@ class testHagoromoSekai {
 		setUpSceneNormalSekai();
 		sekai.updateClanName("Haruno",sekai.getClans().get(1));
 		assertEquals(sekai.getClans().get(1).getName(), "Haruno");
+		
 		assertFalse(sekai.updateClanName("Haruno",sekai.getClans().get(0)));
 	}
 	
@@ -73,6 +72,7 @@ class testHagoromoSekai {
 	void testSearchClan() {
 		setUpSceneEmptySekai();
 		assertFalse(sekai.searchClan("Uchiha"));
+		
 		setUpSceneNormalSekai();
 		assertTrue(sekai.searchClan("Aburame"));
 		assertTrue(sekai.searchClan("Hiuga"));
@@ -83,6 +83,7 @@ class testHagoromoSekai {
 	void testGetClan(){
 		setUpSceneEmptySekai();
 		assertEquals(sekai.getClan("Uchiha"),null);
+		
 		setUpSceneNormalSekai();
 		assertEquals(sekai.getClan("Aburame").getName(),"Aburame");
 		assertEquals(sekai.getClan("Hiuga").getName(),"Hiuga");
@@ -90,7 +91,7 @@ class testHagoromoSekai {
 	}
 	
 	@Test
-	void sortClanName(){
+	void testSortClanName(){
 		setUpSceneDisorderedSekai();
 		sekai.sortClanName();
 		assertEquals(sekai.getClans().get(0).getName(),"Aburame");
