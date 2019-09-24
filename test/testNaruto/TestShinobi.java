@@ -1,4 +1,4 @@
-package testModel;
+package testNaruto;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -71,6 +71,15 @@ class TestShinobi {
 		assertEquals(ninja.getJutsu(1).getName(), "Tirador de Agua");
 		
 		assertFalse(ninja.updateJutsuName("Tirador de Agua",ninja.getJutsu(0)));
+	}
+	
+	@Test
+	void testPrintJutsus(){
+		setUpSceneEmptyShinobi();
+		assertEquals(ninja.printJutsus(), "Ø");
+		
+		setUpSceneNormalShinobi();
+		assertEquals(ninja.printJutsus(), "-[name=Control de Cuerpo Humano, factor=0.8]-\n-[name=100 Marionetas, factor=1.2]-\n-[name=Arena de Hierro, factor=1.5]-\n");
 	}
 	
 	@Test

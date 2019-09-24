@@ -1,4 +1,4 @@
-package testModel;
+package testNaruto;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -66,6 +66,15 @@ class TestHagoromoSekai {
 		assertEquals(sekai.getClans().get(1).getName(), "Haruno");
 		
 		assertFalse(sekai.updateClanName("Haruno",sekai.getClans().get(0)));
+	}
+	
+	@Test
+	void testPrintClans(){
+		setUpSceneEmptySekai();
+		assertEquals(sekai.printClans(), "Ø");
+		
+		setUpSceneNormalSekai();
+		assertEquals(sekai.printClans(), "-[name=Aburame]-\n-[name=Hiuga]-\n-[name=Sarutobi]-\n");
 	}
 	
 	@Test

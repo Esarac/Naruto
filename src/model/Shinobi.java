@@ -101,13 +101,20 @@ public class Shinobi implements Serializable, Comparable<Shinobi>, Comparator<Sh
 	}
 	
 	//Print
-	public String printJutsus(){//Testeo??
+	public String printJutsus(){
 		String jutsus="";
-		Jutsu actual=firstJutsu;
-		while(actual!=null){
-			jutsus+=actual+"\n";
-			actual=actual.getNextJutsu();
+		
+		if(jutsuSize()!=0){
+			Jutsu actual=firstJutsu;
+			while(actual!=null){
+				jutsus+=actual+"\n";
+				actual=actual.getNextJutsu();
+			}
 		}
+		else{
+			jutsus="Ø";
+		}
+		
 		return jutsus;
 	}
 	

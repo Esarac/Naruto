@@ -65,13 +65,20 @@ public class Clan implements Serializable, Comparable<Clan>{
 	}
 	
 	//Print
-	public String printShinobis(){//Testeo?
+	public String printShinobis(){
 		String shinobis="";
-		Shinobi actual=firstShinobi;
-		while(actual!=null){
-			shinobis+=actual+"\n";
-			actual=actual.getNextShinobi();
+		
+		if(shinobiSize()!=0){
+			Shinobi actual=firstShinobi;
+			while(actual!=null){
+				shinobis+=actual+"\n";
+				actual=actual.getNextShinobi();
+			}
 		}
+		else{
+			shinobis="Ø";
+		}
+
 		return shinobis;
 	}
 	

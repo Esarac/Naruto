@@ -74,11 +74,18 @@ public class HagoromoSekai{
 	}
 	
 	//Print
-	public String printClans(){//Testeo?
+	public String printClans(){
 		String clans="";
-		for(int i=0;i<this.clans.size();i++){
-			clans+=this.clans.get(i)+"\n";
+		
+		if(this.clans.size()!=0){
+			for(int i=0;i<this.clans.size();i++){
+				clans+=this.clans.get(i)+"\n";
+			}
 		}
+		else{
+			clans="Ø";
+		}
+		
 		return clans;
 	}
 	

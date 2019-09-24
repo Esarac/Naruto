@@ -1,4 +1,4 @@
-package testModel;
+package testNaruto;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -62,6 +62,15 @@ class TestClan {
 		assertEquals(clan.getShinobi(1).getName(), "Madara");
 		
 		assertFalse(clan.updateShinobiName("Madara",clan.getShinobi(0)));
+	}
+	
+	@Test
+	void testPrintShinobis(){
+		setUpSceneEmptyClan();
+		assertEquals(clan.printShinobis(), "Ø");
+		
+		setUpSceneNormalClan();
+		assertEquals(clan.printShinobis(), "-[name=Sasuke, personality=Alegre, creationDate=24/12/2001, power=2000]-\n-[name=Itachi, personality=Aburrido, creationDate=03/04/2000, power=1500]-\n-[name=Obito, personality=Frio, creationDate=09/09/2002, power=1000]-\n");
 	}
 	
 	@Test
