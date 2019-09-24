@@ -130,8 +130,6 @@ class TestShinobi {
 		setUpSceneNormalShinobi();
 		assertTrue(ninja.setJutsu(1,new Jutsu("Tirador de Agua", 0.4)));
 		assertEquals(ninja.getJutsu(1).getName(), "Tirador de Agua");
-		
-		assertTrue(ninja.setJutsu(1,ninja.getJutsu(2)));
 	}
 	
 	@Test

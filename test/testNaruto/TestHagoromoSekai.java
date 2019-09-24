@@ -20,7 +20,7 @@ class TestHagoromoSekai {
 		sekai=new HagoromoSekai();
 		ArrayList<Clan> clans=new ArrayList<Clan>();
 		clans.add(new Clan("Aburame"));
-		clans.add(new Clan("Hiuga"));
+		clans.add(new Clan("Hyuga"));
 		clans.add(new Clan("Sarutobi"));
 		sekai.setClans(clans);
 	}
@@ -29,7 +29,7 @@ class TestHagoromoSekai {
 		sekai=new HagoromoSekai();
 		ArrayList<Clan> clans=new ArrayList<Clan>();
 		clans.add(new Clan("Sarutobi"));
-		clans.add(new Clan("Hiuga"));
+		clans.add(new Clan("Hyuga"));
 		clans.add(new Clan("Aburame"));
 		sekai.setClans(clans);
 	}
@@ -38,12 +38,12 @@ class TestHagoromoSekai {
 	@Test
 	void testAddClan(){
 		setUpSceneEmptySekai();
-		assertTrue(sekai.addClan("Hiuga"));
+		assertTrue(sekai.addClan("Hyuga"));
 		assertTrue(sekai.addClan("Aburame"));
-		assertFalse(sekai.addClan("Hiuga"));
+		assertFalse(sekai.addClan("Hyuga"));
 		
 		assertEquals(sekai.getClans().get(0).getName(), "Aburame");
-		assertEquals(sekai.getClans().get(1).getName(), "Hiuga");
+		assertEquals(sekai.getClans().get(1).getName(), "Hyuga");
 	}
 	
 	@Test
@@ -54,7 +54,7 @@ class TestHagoromoSekai {
 		setUpSceneNormalSekai();
 		assertTrue(sekai.deleteClan("Aburame"));
 		assertTrue(sekai.deleteClan("Sarutobi"));
-		assertTrue(sekai.deleteClan("Hiuga"));
+		assertTrue(sekai.deleteClan("Hyuga"));
 		
 		assertEquals(sekai.getClans().size(), 0);
 	}
@@ -74,7 +74,7 @@ class TestHagoromoSekai {
 		assertEquals(sekai.printClans(), "Ø");
 		
 		setUpSceneNormalSekai();
-		assertEquals(sekai.printClans(), "-[name=Aburame]-\n-[name=Hiuga]-\n-[name=Sarutobi]-\n");
+		assertEquals(sekai.printClans(), "-[name=Aburame]-\n-[name=Hyuga]-\n-[name=Sarutobi]-\n");
 	}
 	
 	@Test
@@ -84,7 +84,7 @@ class TestHagoromoSekai {
 		
 		setUpSceneNormalSekai();
 		assertTrue(sekai.searchClan("Aburame"));
-		assertTrue(sekai.searchClan("Hiuga"));
+		assertTrue(sekai.searchClan("Hyuga"));
 		assertTrue(sekai.searchClan("Sarutobi"));
 	}
 	
@@ -95,7 +95,7 @@ class TestHagoromoSekai {
 		
 		setUpSceneNormalSekai();
 		assertEquals(sekai.getClan("Aburame").getName(),"Aburame");
-		assertEquals(sekai.getClan("Hiuga").getName(),"Hiuga");
+		assertEquals(sekai.getClan("Hyuga").getName(),"Hyuga");
 		assertEquals(sekai.getClan("Sarutobi").getName(),"Sarutobi");
 	}
 	
@@ -104,7 +104,7 @@ class TestHagoromoSekai {
 		setUpSceneDisorderedSekai();
 		sekai.sortClanName();
 		assertEquals(sekai.getClans().get(0).getName(),"Aburame");
-		assertEquals(sekai.getClans().get(1).getName(),"Hiuga");
+		assertEquals(sekai.getClans().get(1).getName(),"Hyuga");
 		assertEquals(sekai.getClans().get(2).getName(),"Sarutobi");
 	}
 }

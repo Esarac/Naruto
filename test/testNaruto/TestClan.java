@@ -139,8 +139,6 @@ class TestClan {
 		setUpSceneNormalClan();
 		assertTrue(clan.setShinobi(1,new Shinobi("Madara","Enojado",new GregorianCalendar(2001, 12-1, 24), 2000)));
 		assertEquals(clan.getShinobi(1).getName(), "Madara");
-		
-		assertTrue(clan.setShinobi(1,clan.getShinobi(2)));
 	}
 	
 	@Test

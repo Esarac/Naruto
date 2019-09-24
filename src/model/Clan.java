@@ -190,11 +190,12 @@ public class Clan implements Serializable, Comparable<Clan>{
 	
 	public boolean setShinobi(int index, Shinobi tempShinobi){
 		int size=shinobiSize();
-		Shinobi shinobi=new Shinobi(tempShinobi.getName(), tempShinobi.getPersonality(), tempShinobi.getCreationDate(), tempShinobi.getPower());
-		
 		boolean possible=true;
-		Shinobi actual=firstShinobi;
+		
 		try{
+			Shinobi shinobi=new Shinobi(tempShinobi.getName(), tempShinobi.getPersonality(), tempShinobi.getCreationDate(), tempShinobi.getPower());
+			
+			Shinobi actual=firstShinobi;
 			for(int i=0;i<index;i++){
 				actual=actual.getNextShinobi();
 			}

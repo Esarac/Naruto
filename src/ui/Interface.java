@@ -70,8 +70,8 @@ public class Interface {
 			break;
 			case 5:
 				run=false;
-				sekai.save();
 				System.out.println("Hasta la proxima!");//Message
+				sekai.save();
 			break;
 		}
 		return run;
@@ -147,8 +147,8 @@ public class Interface {
 				if(actualShinobi!=null)System.out.println("Se entro al personaje");else System.out.println("No se entro al personaje");//Message
 			break;
 			case 6:
-				sekai.save();
 				this.actualClan=null;
+				sekai.save();
 			break;
 		}
 	}
@@ -226,8 +226,8 @@ public class Interface {
 				if(actualJutsu!=null)System.out.println("Se entro a la tecnica");else System.out.println("No se entro a la tecnica");//Message
 			break;
 			case 6:
-				sekai.save();
 				this.actualShinobi=null;
+				sekai.save();
 			break;
 		}
 	}
@@ -258,8 +258,8 @@ public class Interface {
 				}
 			break;
 			case 2:
-				sekai.save();
 				this.actualJutsu=null;
+				sekai.save();
 			break;
 		}
 	}
@@ -319,6 +319,7 @@ public class Interface {
 		this.scanner=new Scanner(System.in);
 		this.sekai=new HagoromoSekai();
 		sekai.load();
+		
 		this.actualClan=null;
 		this.actualShinobi=null;
 		this.actualJutsu=null;

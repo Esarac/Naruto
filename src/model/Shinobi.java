@@ -189,12 +189,13 @@ public class Shinobi implements Serializable, Comparable<Shinobi>, Comparator<Sh
 	}
 	
 	public boolean setJutsu(int index, Jutsu tempJutsu){
-		Jutsu jutsu=new Jutsu(tempJutsu.getName(), tempJutsu.getFactor());
-		
 		boolean possible=true;
-		Jutsu previous=null;
-		Jutsu actual=firstJutsu;
+		
 		try{
+			Jutsu jutsu=new Jutsu(tempJutsu.getName(), tempJutsu.getFactor());
+			
+			Jutsu previous=null;
+			Jutsu actual=firstJutsu;
 			for(int i=0;i<index;i++){
 				previous=actual;
 				actual=actual.getNextJutsu();
